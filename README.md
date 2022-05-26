@@ -8,7 +8,7 @@
 
 现已合并入[WorldHim/evolve](https://github.com/WorldHim/evolve)
 
-[修改器](https://evolve-cn.vercel.app/trainer/trainer.html)
+[修改器](https://evolve-trainer.vercel.app/trainer/trainer.html)
 
 [游戏](https://evolve-cn.vercel.app/)
 
