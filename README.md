@@ -1,11 +1,16 @@
 # EvolveTrainer
 
+## 恭喜你 发现了宝藏
+
 #### 介绍
-放置游戏Evolve的存档修改器
 
-[修改器](/trainer.html)
+放置游戏 Evolve 的存档修改器
 
-[游戏](https://yx.g8hh.com/evolve/)
+现已合并入[WorldHim/evolve](https://github.com/WorldHim/evolve)
+
+[修改器](https://evolve-cn.vercel.app/trainer/trainer.html)
+
+[游戏](https://evolve-cn.vercel.app/)
 
 :warning:**使用前请阅读说明并备份存档避免存档混乱或丢失**:warning:
 
