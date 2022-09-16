@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>Evolve 修改器</title>
+</head>
+<body>
+    <p align="center"><font size="8" color="red">使用前请阅读说明并备份存档避免存档混乱或丢失</font></p>
+    <table border="1">
+        <tr>
+            <td>
+                <div>待修改区</div>
+                <textarea rows="40" cols="60" id="inSecretArea"></textarea>
+            </td>
+            <td>    
+                <div>
+                    <button style="width:140px" onclick="LoadSecret()">解析存档</button>
+                </div>   
+                <div>
+                    <button style="width:140px" onclick="LimitAdd()">增加有限资源</button>
+                </div>   
+                <div>
+                    <button style="width:140px" onclick="NoLimitAdd()">增加无限资源</button>
+                </div> 
+                <div>
+                    <button style="width:140px" onclick="SoulGemAdd()">增加灵魂宝石</button>
+                </div>    
+                <div>
+                    <button style="width:140px" onclick="ResetLog()">清空日志</button>
+                </div>    
+                <div>
+                    <button style="width:140px" onclick="SaveOutToIn()">存入待修改区</button>
+                </div>            
+            </td>
+            <td>
+                <div>已修改区</div>
+                <textarea rows="40" cols="60" id="outSecretArea"></textarea>
+            </td>
+            <td>
+                <div>日志</div>
+                <textarea rows="40" cols="50" id="outLog"></textarea>
+            </td>
+        </tr>
+    </table>
+</body>
+<script src="./js/lz-string.min.js"></script>
+<script>
+    var inSecretCode, inUnsecretCode, outUnsecretCode, outSecretCode, outlog
+
+    ResetLog()
+
+    function ResetLog(){
+        outlog = ""
+        document.getElementById("outLog").value = outlog
+    }
+
+
+    function SaveOutToIn(){
+        inUnsecretCode = outUnsecretCode
+        outlog += "Saved! \n"
+        document.getElementById("outLog").value = outlog
+    }
+
+    function LoadSecret()
+    {
+        inSecretCode = document.getElementById("inSecretArea").value
+        var unSecretByA = LZString.decompressFromUTF16(inSecretCode)
+        var unSecretByB = LZString.decompressFromBase64(inSecretCode)
+
+        inUnsecretCode = JSON.parse(unSecretByA ? unSecretByA : unSecretByB)
+        outlog += "初始化数据! \n"
+        document.getElementById("outLog").value = outlog
+    }
+
+    function LimitAdd()
+    {
+        outUnsecretCode = inUnsecretCode
+        var resource = outUnsecretCode.resource
+
+        for (var objname in resource){
+
+            var obj = resource[objname]
+
+            if(obj.display == true && obj.max > 10000){ 
+                outUnsecretCode.resource[objname].amount = obj.max - 10000
+                outlog += obj.name + " add to " + (obj.max - 10000) + "\n"
+            }
+        }
+
+        outSecretCode = LZString.compressToBase64(JSON.stringify(outUnsecretCode))
+
+        document.getElementById("outLog").value = outlog
+        document.getElementById("outSecretArea").value = outSecretCode
+    }
+
+    function NoLimitAdd()
+    {
+        outUnsecretCode = inUnsecretCode
+        var resource = outUnsecretCode.resource
+
+        for (var objname in resource){
+
+            var obj = resource[objname]
+
+            if(obj.display == true && obj.max == -1){             
+
+                outUnsecretCode.resource[objname].amount = obj.amount + 9999999999
+                outlog += obj.name + " 增加 9999999999 (9.99G) \n"
+            }
+        }
+
+        outSecretCode = LZString.compressToBase64(JSON.stringify(outUnsecretCode))
+
+        document.getElementById("outLog").value = outlog
+        document.getElementById("outSecretArea").value = outSecretCode
+    }
+
+    function SoulGemAdd()
+    {
+        outUnsecretCode = inUnsecretCode
+
+        outUnsecretCode.resource.Soul_Gem.amount += 999
+
+        outlog += "灵魂宝石 增加 999 \n"
+
+        outSecretCode = LZString.compressToBase64(JSON.stringify(outUnsecretCode))
+
+        document.getElementById("outLog").value = outlog
+        document.getElementById("outSecretArea").value = outSecretCode
+    }
+
+</script>
+</html>
