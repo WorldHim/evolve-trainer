@@ -4,13 +4,13 @@
 
 #### 介绍
 
-放置游戏 Evolve 的存档修改器
+游戏 Evolve 的存档修改器
 
-现已合并入[WorldHim/evolve](https://github.com/WorldHim/evolve)
+~~现已合并入[WorldHim/evolve](https://github.com/WorldHim/evolve)~~
 
-[修改器](https://evolve-trainer.vercel.app/trainer/trainer.html)
+[修改器](https://evolve-trainer.netlify.app/trainer/trainer.html)
 
-[游戏](https://evolve-cn.vercel.app/)
+[游戏](https://evolve-cn.netlify.app/)
 
 :warning:**使用前请阅读说明并备份存档避免存档混乱或丢失**:warning:
 
